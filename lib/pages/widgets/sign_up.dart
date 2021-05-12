@@ -70,12 +70,12 @@ class _SignUpState extends State<SignUp> {
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(FontAwesomeIcons.user,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             hintText: 'Nombre',
                             hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 16.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                           ),
                           onSubmitted: (_) {
                             focusNodeEmail.requestFocus();
@@ -102,12 +102,12 @@ class _SignUpState extends State<SignUp> {
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(FontAwesomeIcons.envelope,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             hintText: 'Email',
                             hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 16.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                           ),
                           onSubmitted: (_) {
                             focusNodePassword.requestFocus();
@@ -134,12 +134,12 @@ class _SignUpState extends State<SignUp> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: const Icon(FontAwesomeIcons.lock,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             hintText: 'Contraseña',
                             hintStyle: const TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 16.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignup,
                               child: Icon(
@@ -176,12 +176,12 @@ class _SignUpState extends State<SignUp> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: const Icon(FontAwesomeIcons.lock,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             hintText: 'Repetir contraseña',
                             hintStyle: const TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 16.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignupConfirm,
                               child: Icon(
@@ -228,7 +228,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 child: MaterialButton(
                   highlightColor: Colors.transparent,
-                  splashColor: CustomTheme.loginGradientEnd,
+                  splashColor: CustomTheme.green,
                   //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: const Padding(
                     padding:

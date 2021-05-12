@@ -63,14 +63,14 @@ class _SignInState extends State<SignIn> {
                             border: InputBorder.none,
                             icon: Icon(
                               FontAwesomeIcons.envelope,
-                              color: CustomTheme.loginGradientEnd,
+                              color: CustomTheme.green,
                               size: 22.0,
                             ),
                             hintText: 'Email',
                             hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 17.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                           ),
                           onSubmitted: (_) {
                             focusNodePassword.requestFocus();
@@ -96,13 +96,12 @@ class _SignInState extends State<SignIn> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: const Icon(FontAwesomeIcons.lock,
-                                size: 22.0,
-                                color: CustomTheme.loginGradientEnd),
+                                size: 22.0, color: CustomTheme.green),
                             hintText: 'Contraseña',
                             hintStyle: const TextStyle(
                                 fontFamily: 'WorkSansSemiBold',
                                 fontSize: 17.0,
-                                color: CustomTheme.loginGradientEnd),
+                                color: CustomTheme.green),
                             suffixIcon: GestureDetector(
                               onTap: _toggleLogin,
                               child: Icon(
@@ -149,7 +148,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 child: MaterialButton(
                   highlightColor: Colors.pink,
-                  splashColor: CustomTheme.loginGradientEnd,
+                  splashColor: CustomTheme.green,
                   child: const Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
@@ -245,7 +244,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     child: const Icon(
                       FontAwesomeIcons.userClock,
-                      color: CustomTheme.loginGradientEnd,
+                      color: CustomTheme.green,
                     ),
                   ),
                 ),

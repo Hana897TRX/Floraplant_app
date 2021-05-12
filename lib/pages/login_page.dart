@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage>
             gradient: LinearGradient(
                 colors: <Color>[
                   CustomTheme.loginGradientStart,
-                  CustomTheme.loginGradientEnd
+                  CustomTheme.green
                 ],
                 begin: FractionalOffset(0.0, 0.0),
                 end: FractionalOffset(1.0, 1.0),

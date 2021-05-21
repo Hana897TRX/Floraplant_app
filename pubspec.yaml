@@ -1,4 +1,4 @@
-name: floraplant_app
+name: floramundo_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -8,40 +8,33 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.2
   gradient_widgets: ^0.6.0
   flutter:
     sdk: flutter
-<<<<<<< HEAD
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_neumorphic: ^3.0.3
-=======
   font_awesome_flutter:
->>>>>>> 05c2a087270591607dc11b20c496c1f83534930b
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.7.4
+flutter_icons:
+  image_path: "assets/icons/app_icon.png" 
+  android: true
+  ios: true
 flutter:
-<<<<<<< HEAD
   assets:
     - assets/img/
-    - assets/icons/
     - assets/fonts/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-=======
->>>>>>> 05c2a087270591607dc11b20c496c1f83534930b
   uses-material-design: true
-
-  assets:
-    - assets/img/
 
   fonts:
     - family: WorkSansSemiBold

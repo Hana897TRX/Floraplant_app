@@ -1,8 +1,8 @@
-import 'package:floraplant_app/widgets/bottomNavigationBar.dart';
+import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:floraplant_app/theme.dart';
-import 'package:floraplant_app/widgets/snackbar.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/widgets/snackbar.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);

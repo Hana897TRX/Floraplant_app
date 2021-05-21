@@ -1,5 +1,6 @@
-import 'package:floraplant_app/pages/login_page.dart';
-import 'package:floraplant_app/theme.dart';
+import 'package:floramundo_app/pages/login_page.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -132,7 +133,7 @@ class DescripcionPago extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextButton.icon(
-                            label: const Text('Paypal'),
+                            label: const Text('Mercado pago'),
                             icon: Icon(
                                 Icons.payment), //CAMBIAR ÍCONO POR EL DE PAYPAL
                             onPressed: () {/* ... */},
@@ -161,7 +162,7 @@ class DescripcionPago extends StatelessWidget {
         ],
       ),
     );
-    return modalPago;
+    return Scaffold(body: modalPago);
   }
 }
 
@@ -336,7 +337,7 @@ class TarjetaDatos extends StatelessWidget {
         ],
       ),
     );
-    return cardDatosTarjeta;
+    return Scaffold(body: cardDatosTarjeta);
   }
 }
 
@@ -496,7 +497,15 @@ class ResumenPago extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             ElevatedButton(
-                              onPressed: () => _showToast(context),
+                              onPressed: () {
+                                _showToast(context);
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NavigationBar()),
+                                  (route) => false,
+                                );
+                              },
                               child: const Text("Confirmado"),
                               style: ElevatedButton.styleFrom(
                                 primary: CustomTheme.lightgreen,
@@ -514,7 +523,7 @@ class ResumenPago extends StatelessWidget {
         ],
       ),
     );
-    return resumen;
+    return Scaffold(body: resumen);
   }
 
   void _showToast(BuildContext context) {

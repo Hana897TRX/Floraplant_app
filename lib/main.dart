@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import 'package:floraplant_app/home_page.dart';
-=======
-import 'package:floraplant_app/pages/login_page.dart';
-import 'package:floraplant_app/pages/payment.dart';
-import 'package:floraplant_app/pages/profile_page.dart';
+import 'package:floramundo_app/home_page.dart';
+import 'package:floramundo_app/pages/login_page.dart';
 import 'package:flutter/services.dart';
->>>>>>> 05c2a087270591607dc11b20c496c1f83534930b
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -24,7 +19,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     SystemChrome.setEnabledSystemUIOverlays([]);
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
@@ -40,12 +34,7 @@ class MyApp extends StatelessWidget {
         lightSource: LightSource.topLeft,
         depth: 6,
       ),
-      home: MyHomePage(),
-=======
-    return MaterialApp(
-      title: 'Floramundo store',
       home: LoginPage(),
->>>>>>> 05c2a087270591607dc11b20c496c1f83534930b
     );
   }
 }

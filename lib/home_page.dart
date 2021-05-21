@@ -1,4 +1,4 @@
-import 'package:floraplant_app/catalogueCard.dart';
+import 'package:floramundo_app/catalogueCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'popularCard.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Floraplant Store',
+            'Floramundo Store',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           Container(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
             ),
             Flexible(
               child: TextField(
-                decoration: InputDecoration(hintText: 'Search'),
+                decoration: InputDecoration(hintText: 'Buscar'),
               ),
             ),
           ],
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             child: Text(
-              'All',
+              'Todo',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
             margin:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
-              'Outdoor',
+              'Exteriores',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
             margin:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
-              'Indoor',
+              'Interiores',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
             margin:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
-              'Office',
+              'Oficina',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
             margin:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
-              'Garden',
+              'Jardín',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
       ),
       alignment: Alignment.centerLeft,
       child: Text(
-        'Catalogue',
+        'Catálogo',
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       ),
     );
@@ -158,23 +158,26 @@ class HomePage extends StatelessWidget {
       ),
     );
 
-    return Column(
-      children: [
-        floraplantLogo,
-        search,
-        categoryMenu,
-        ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: [
-            textPopular,
-            popularPlants,
-            textCatalogo,
-            catalogue,
-            catalogue,
-          ],
-        ),
-      ],
-    );
+    return Container(
+        child: SingleChildScrollView(
+      child: Column(
+        children: [
+          floraplantLogo,
+          search,
+          categoryMenu,
+          ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            children: [
+              textPopular,
+              popularPlants,
+              textCatalogo,
+              catalogue,
+              catalogue
+            ],
+          ),
+        ],
+      ),
+    ));
   }
 }

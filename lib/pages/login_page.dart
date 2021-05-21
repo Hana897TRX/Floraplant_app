@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:floraplant_app/pages/widgets/sign_in.dart';
-import 'package:floraplant_app/pages/widgets/sign_up.dart';
-import 'package:floraplant_app/theme.dart';
-import 'package:floraplant_app/utils/bubble_indicator_painter.dart';
+import 'package:floramundo_app/pages/widgets/sign_in.dart';
+import 'package:floramundo_app/pages/widgets/sign_up.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/utils/bubble_indicator_painter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);

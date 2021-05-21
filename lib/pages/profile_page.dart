@@ -1,11 +1,14 @@
-import 'package:floraplant_app/widgets/snackbar.dart';
+import 'package:floramundo_app/pages/delivery_page.dart';
+import 'package:floramundo_app/pages/infoCuenta_page.dart';
+import 'package:floramundo_app/pages/orders_page.dart';
+import 'package:floramundo_app/widgets/floraMundoLogo.dart';
+import 'package:floramundo_app/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:floraplant_app/pages/widgets/sign_in.dart';
-import 'package:floraplant_app/pages/widgets/sign_up.dart';
-import 'package:floraplant_app/theme.dart';
-import 'package:floraplant_app/utils/bubble_indicator_painter.dart';
+import 'package:floramundo_app/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+
+import 'login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -56,12 +59,16 @@ class _ProfilePageState extends State<ProfilePage>
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              FloramundoLogo(),
               Padding(
-                  padding: const EdgeInsets.only(top: 70.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: GradientCard(
                       elevation: 2.0,
                       gradient: LinearGradient(
-                          colors: <Color>[Colors.blue, Colors.lightBlueAccent],
+                          colors: <Color>[
+                            CustomTheme.pink,
+                            CustomTheme.lightgreen
+                          ],
                           begin: FractionalOffset(0.0, 0.0),
                           end: FractionalOffset(1.0, 1.0),
                           stops: <double>[0.0, 1.0],
@@ -69,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage>
                       shadowColor:
                           Gradients.tameer.colors.last.withOpacity(0.25),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: Container(
                           width: 330.0,
@@ -90,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage>
                               padding:
                                   const EdgeInsets.only(top: 10.0, left: 170.0),
                               child: Text(
-                                'Status: activo',
+                                'Estatus: activo',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14.0,
@@ -103,14 +110,16 @@ class _ProfilePageState extends State<ProfilePage>
                   padding: const EdgeInsets.only(top: 40.0),
                   child: GestureDetector(
                     onTap: () => {
-                      CustomSnackBar(
-                          context, const Text('Cuenta button pressed'))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => InfoCuenta()),
+                      )
                     },
                     child: Card(
                         elevation: 2.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Container(
                             width: 330.0,
@@ -134,14 +143,16 @@ class _ProfilePageState extends State<ProfilePage>
                   padding: const EdgeInsets.only(top: 10.0),
                   child: GestureDetector(
                     onTap: () => {
-                      CustomSnackBar(
-                          context, const Text('Orders button pressed'))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrdersPage()),
+                      )
                     },
                     child: Card(
                         elevation: 2.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Container(
                             width: 330.0,
@@ -165,14 +176,17 @@ class _ProfilePageState extends State<ProfilePage>
                   padding: const EdgeInsets.only(top: 10.0),
                   child: GestureDetector(
                     onTap: () => {
-                      CustomSnackBar(
-                          context, const Text('Delivery info button pressed'))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DatosDelivery()),
+                      )
                     },
                     child: Card(
                         elevation: 2.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Container(
                             width: 330.0,
@@ -182,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 padding: const EdgeInsets.only(
                                     top: 0.0, left: 25.0, right: 55.0),
                                 child: Text(
-                                  'Información de entregas',
+                                  'Información de entrega',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 17.0,
@@ -193,48 +207,20 @@ class _ProfilePageState extends State<ProfilePage>
                             ]))),
                   )),
               Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 90.0),
                   child: GestureDetector(
                     onTap: () => {
-                      CustomSnackBar(
-                          context, const Text('Payment methods button pressed'))
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        (route) => false,
+                      )
                     },
                     child: Card(
                         elevation: 2.0,
-                        color: Colors.white,
+                        color: CustomTheme.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Container(
-                            width: 330.0,
-                            height: 70.0,
-                            child: Row(children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 0.0, left: 25.0, right: 115.0),
-                                child: Text(
-                                  'Métodos de pago',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17.0,
-                                      fontFamily: 'WorkSansBold'),
-                                ),
-                              ),
-                              Icon(FontAwesomeIcons.angleRight)
-                            ]))),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: GestureDetector(
-                    onTap: () => {
-                      CustomSnackBar(
-                          context, const Text('Sign out button pressed'))
-                    },
-                    child: Card(
-                        elevation: 2.0,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Container(
                             width: 330.0,
@@ -251,7 +237,10 @@ class _ProfilePageState extends State<ProfilePage>
                                       fontFamily: 'WorkSansBold'),
                                 ),
                               ),
-                              Icon(FontAwesomeIcons.angleRight)
+                              Icon(
+                                FontAwesomeIcons.signOutAlt,
+                                color: CustomTheme.pink,
+                              )
                             ]))),
                   )),
             ],
@@ -259,65 +248,5 @@ class _ProfilePageState extends State<ProfilePage>
         ),
       ),
     ));
-  }
-
-  Widget _buildMenuBar(BuildContext context) {
-    return Container(
-      width: 300.0,
-      height: 50.0,
-      decoration: const BoxDecoration(
-        color: Color(0x552B2B2B),
-        borderRadius: BorderRadius.all(Radius.circular(25.0)),
-      ),
-      child: CustomPaint(
-        painter: BubbleIndicatorPainter(pageController: _pageController),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              child: TextButton(
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                ),
-                onPressed: _onSignInButtonPress,
-                child: Text(
-                  'Existente',
-                  style: TextStyle(
-                      color: left,
-                      fontSize: 16.0,
-                      fontFamily: 'WorkSansSemiBold'),
-                ),
-              ),
-            ),
-            //Container(height: 33.0, width: 1.0, color: Colors.white),
-            Expanded(
-              child: TextButton(
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                ),
-                onPressed: _onSignUpButtonPress,
-                child: Text(
-                  'Nuevo',
-                  style: TextStyle(
-                      color: right,
-                      fontSize: 16.0,
-                      fontFamily: 'WorkSansSemiBold'),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _onSignInButtonPress() {
-    _pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
-  }
-
-  void _onSignUpButtonPress() {
-    _pageController?.animateToPage(1,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 }

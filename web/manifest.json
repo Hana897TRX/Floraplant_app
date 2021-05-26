@@ -1,6 +1,6 @@
 {
-    "name": "floraplant_app",
-    "short_name": "floraplant_app",
+    "name": "floramundo_app",
+    "short_name": "floramundo_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

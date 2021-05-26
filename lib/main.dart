@@ -1,6 +1,7 @@
-import 'package:floraplant_app/home_page.dart';
-import 'package:flutter/material.dart';
+import 'package:floramundo_app/home_page.dart';
+import 'package:floramundo_app/pages/login_page.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'cart_page.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         lightSource: LightSource.topLeft,
         depth: 6,
       ),
-      home: MyHomePage(),
+      home: LoginPage(),
     );
   }
 }

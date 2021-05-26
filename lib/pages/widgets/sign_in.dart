@@ -1,7 +1,8 @@
+import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:floraplant_app/theme.dart';
-import 'package:floraplant_app/widgets/snackbar.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/widgets/snackbar.dart';
 
 import '../../theme.dart';
 
@@ -147,22 +148,26 @@ class _SignInState extends State<SignIn> {
                       tileMode: TileMode.clamp),
                 ),
                 child: MaterialButton(
-                  highlightColor: Colors.pink,
-                  splashColor: CustomTheme.green,
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                    child: Text(
-                      'INGRESAR',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.0,
-                          fontFamily: 'WorkSansBold'),
+                    highlightColor: Colors.pink,
+                    splashColor: CustomTheme.green,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 15.0),
+                      child: Text(
+                        'INGRESAR',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.0,
+                            fontFamily: 'WorkSansBold'),
+                      ),
                     ),
-                  ),
-                  onPressed: () => CustomSnackBar(
-                      context, const Text('Login button pressed')),
-                ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar()),
+                      );
+                    }),
               )
             ],
           ),
@@ -234,8 +239,12 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => CustomSnackBar(
-                      context, const Text('Temporal button pressed')),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NavigationBar()),
+                    );
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(

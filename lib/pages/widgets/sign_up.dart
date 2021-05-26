@@ -1,7 +1,8 @@
+import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:floraplant_app/theme.dart';
-import 'package:floraplant_app/widgets/snackbar.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/widgets/snackbar.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);
@@ -227,22 +228,27 @@ class _SignUpState extends State<SignUp> {
                       tileMode: TileMode.clamp),
                 ),
                 child: MaterialButton(
-                  highlightColor: Colors.transparent,
-                  splashColor: CustomTheme.green,
-                  //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                    child: Text(
-                      'REGISTRARSE',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.0,
-                          fontFamily: 'WorkSansBold'),
+                    highlightColor: Colors.transparent,
+                    splashColor: CustomTheme.green,
+                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 15.0),
+                      child: Text(
+                        'REGISTRARSE',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.0,
+                            fontFamily: 'WorkSansBold'),
+                      ),
                     ),
-                  ),
-                  onPressed: () => _toggleSignUpButton(),
-                ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar()),
+                      );
+                    }),
               )
             ],
           ),

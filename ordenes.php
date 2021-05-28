@@ -40,7 +40,8 @@ if("ORDERS_CUSTOMER"==$action){
 if("ORDER_PRODUCTS"==$action){
     $db_data=array();
     $orderId = $_POST['order_id'];
-    $sql="";
+    $sql="SELECT * FROM ce_product JOIN ce_product_description ON ce_product.product_id=ce_product_description.product_id where ce_product.product_id in (
+        SELECT ce_order_product.product_id FROM ce_order_product WHERE ce_order_product.order_id = '".$orderId."');";
     $result=$conn->query($sql);
     if($result ->num_rows>  0){
         while($row = $result->fetch_assoc()){
@@ -54,7 +55,35 @@ if("ORDER_PRODUCTS"==$action){
     return;
 }
 
+//Obtener datos de una orden
+if("SELECT_ORDER"==$action){
+    $orderId = $_POST['order_id'];
+    $consultar=$conn->query("SELECT * FROM ce_order where order_id= '".$orderId."'")
+    $resultado=array();
+    while($extraerDatos=$consultar->fetch_assoc()){
+        $resultado[]=$extraerDatos;
+    }
+    
+    echo json_encode($resultado);
+    $conn.close();
+}
+
 
 //insertar una orden
+if("ADD_ORDER"==$action){
+    $email = $_POST['email'];
+    $contra = $_POST['password'];
+    
+    $consultar=$conn->query("SELECT * FROM ce_customer WHERE email='".$email."' and ce_customer.password='".$password."'");
+    
+    $resultado=array();
+    
+    while($extraerDatos=$consultar->fetch_assoc()){
+        $resultado[]=$extraerDatos;
+    }
+    
+    echo json_encode($resultado);
+    $conn.close();
+}
 
 ?>

@@ -35,9 +35,23 @@ if("ORDERS_CUSTOMER"==$action){
     return;
 }
 
+//requiero ayuda en query's
 //obtener productos de orden
 if("ORDER_PRODUCTS"==$action){
-    
+    $db_data=array();
+    $orderId = $_POST['order_id'];
+    $sql="";
+    $result=$conn->query($sql);
+    if($result ->num_rows>  0){
+        while($row = $result->fetch_assoc()){
+            $db_data[]=$row;
+        }
+        echo json_encode($db_data);
+    }else{
+        echo "error"
+    }
+    $conn->close();
+    return;
 }
 
 

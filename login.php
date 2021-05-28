@@ -34,12 +34,13 @@ if("LOGIN"==$action){
     $conn.close();
 }
 
+//AGREGAR CAMPO DE APELLIDO EN FRONT
 if("NEW_USER"==$action){
-    $dato1=$_POST[""];
-    $dato1=$_POST[""];
-    $dato1=$_POST[""];
-
-    $sql="";
+    $nombre=$_POST["name"];
+    $apellido=$_POST["lastname"];
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+    $sql="INSERT into ce_customer values(0,0,'".$nombre."','".$apellido."','".$email."','','','".$password."','','','','','','','','','','',current_time());";
     $res=$conn->query($sql);
     echo "correto";
     $conn->close();

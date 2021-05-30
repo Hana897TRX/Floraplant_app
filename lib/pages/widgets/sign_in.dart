@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:floramundo_app/theme.dart';
 import 'package:floramundo_app/widgets/snackbar.dart';
+import 'package:http/http.dart' as http;
 
 import '../../theme.dart';
 
@@ -162,11 +166,12 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NavigationBar()),
-                      );
+                      _signIn();
+                      //Navigator.push(
+                      //context,
+                      //MaterialPageRoute(
+                      //builder: (context) => NavigationBar()),
+                      //);
                     }),
               )
             ],
@@ -267,6 +272,39 @@ class _SignInState extends State<SignIn> {
 
   void _toggleSignInButton() {
     CustomSnackBar(context, const Text('Login button pressed'));
+  }
+
+  void _signIn() {
+    var email = loginEmailController.text;
+    var password = loginPasswordController.text;
+
+    login(email, password);
+  }
+
+  String mensaje = "";
+
+  Future<http.Response> login(email, password) async {
+    final response = await http
+        .post(
+      Uri.parse("http://192.168.1.69/login.php"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'action': 'LOGIN',
+        'email': email,
+        'password': password,
+      }),
+    )
+        .then((value) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NavigationBar()),
+      );
+      return true;
+    }).catchError((error) {
+      return false;
+    });
   }
 
   void _toggleLogin() {

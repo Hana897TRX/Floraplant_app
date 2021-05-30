@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:floramundo_app/theme.dart';
 import 'package:floramundo_app/widgets/snackbar.dart';
-//import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 import '../../theme.dart';
 
@@ -169,9 +168,9 @@ class _SignInState extends State<SignIn> {
                     onPressed: () {
                       _signIn();
                       //Navigator.push(
-                        //context,
-                        //MaterialPageRoute(
-                            //builder: (context) => NavigationBar()),
+                      //context,
+                      //MaterialPageRoute(
+                      //builder: (context) => NavigationBar()),
                       //);
                     }),
               )
@@ -284,21 +283,29 @@ class _SignInState extends State<SignIn> {
 
   String mensaje = "";
 
-  Future<List> login(email, password) async {
-    var dio = Dio();
-    Response response; 
-    response = await dio.post('http://localhost/login.php', queryParameters: {'email': email, 'password': password, 'action' : 'LOGIN'})
-    .then((response) {
-      var data = response.data['customer_id'];
-      if(data != null){ 
-        _toggleSignInButton();
-      }
-    })
-    .catchError((onError, stackError) {
-      print(stackError);
+  Future<http.Response> login(email, password) async {
+    final response = await http
+        .post(
+      Uri.parse("http://192.168.1.69/login.php"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'action': 'LOGIN',
+        'email': email,
+        'password': password,
+      }),
+    )
+        .then((value) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NavigationBar()),
+      );
+      return true;
+    }).catchError((error) {
+      return false;
     });
   }
-  
 
   void _toggleLogin() {
     setState(() {

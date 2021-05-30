@@ -16,22 +16,20 @@ if($conn->connect_error){
 
 //-----------------------------------------------
 
-$action = $_POST["action"]
+$action = $_POST["action"];
 
 if("LOGIN"==$action){
     $email = $_POST['email'];
-    $contra = $_POST['password'];
-    
-    $consultar=$conn->query("SELECT * FROM ce_customer WHERE email='".$email."' and ce_customer.password='".$password."'");
-    
+    $password = $_POST['password'];
+    $consultar=$conn->query("SELECT * FROM ce_customer WHERE email="."'".$email."'"." and ce_customer.password="."'".$password."';") or die($conn->error);
     $resultado=array();
-    
     while($extraerDatos=$consultar->fetch_assoc()){
-        $resultado[]=$extraerDatos;
+        print_r($extraerDatos);
+        array_push($resultado,$extraerDatos);
     }
-    
-    echo json_encode($resultado);
-    $conn.close();
+  //  print_r($resultado);
+    echo json_encode($resultado[0]);
+    $conn->close();
 }
 
 //AGREGAR CAMPO DE APELLIDO EN FRONT
@@ -42,7 +40,7 @@ if("NEW_USER"==$action){
     $password=$_POST["password"];
     $sql="INSERT into ce_customer values(0,0,'".$nombre."','".$apellido."','".$email."','','','".$password."','','','','','','','','','','',current_time());";
     $res=$conn->query($sql);
-    echo "correto";
+    echo "correcto";
     $conn->close();
     return;
 }

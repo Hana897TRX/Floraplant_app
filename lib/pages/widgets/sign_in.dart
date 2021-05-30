@@ -286,7 +286,7 @@ class _SignInState extends State<SignIn> {
   Future<http.Response> login(email, password) async {
     final response = await http
         .post(
-      Uri.parse("http://192.168.1.69/login.php"),
+      Uri.parse("http://localhost/login.php"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

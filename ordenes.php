@@ -13,9 +13,9 @@ if($conn->connect_error){
     die("Connection failed: ".$conn->connection_error);
     return;
 }
-
+$conn->set_charset("utf8");
 //-----------------------------------------------
-$action = $_POST["action"]
+$action = $_POST["action"];
 
 //obtener ordenes por id de customer
 if("ORDERS_CUSTOMER"==$action){
@@ -29,7 +29,7 @@ if("ORDERS_CUSTOMER"==$action){
         }
         echo json_encode($db_data);
     }else{
-        echo "error"
+        echo "error";
     }
     $conn->close();
     return;
@@ -42,14 +42,14 @@ if("ORDER_PRODUCTS"==$action){
     $orderId = $_POST['order_id'];
     $sql="SELECT * FROM ce_product JOIN ce_product_description ON ce_product.product_id=ce_product_description.product_id where ce_product.product_id in (
         SELECT ce_order_product.product_id FROM ce_order_product WHERE ce_order_product.order_id = '".$orderId."');";
-    $result=$conn->query($sql);
+    $result=$conn->query($sql) or die($conn->error);
     if($result ->num_rows>  0){
         while($row = $result->fetch_assoc()){
             $db_data[]=$row;
         }
         echo json_encode($db_data);
     }else{
-        echo "error"
+        echo "error o no hay productos";
     }
     $conn->close();
     return;
@@ -58,14 +58,14 @@ if("ORDER_PRODUCTS"==$action){
 //Obtener datos de una orden
 if("SELECT_ORDER"==$action){
     $orderId = $_POST['order_id'];
-    $consultar=$conn->query("SELECT * FROM ce_order where order_id= '".$orderId."'")
+    $consultar=$conn->query("SELECT * FROM ce_order where order_id= '".$orderId."'");
     $resultado=array();
     while($extraerDatos=$consultar->fetch_assoc()){
         $resultado[]=$extraerDatos;
     }
     
     echo json_encode($resultado);
-    $conn.close();
+    $conn->close();
 }
 
 
@@ -83,7 +83,7 @@ if("ADD_ORDER"==$action){
     }
     
     echo json_encode($resultado);
-    $conn.close();
+    $conn->close();
 }
 
 ?>

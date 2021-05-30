@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:floramundo_app/theme.dart';
 import 'package:floramundo_app/widgets/snackbar.dart';
+//import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 import '../../theme.dart';
 
@@ -162,11 +167,12 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NavigationBar()),
-                      );
+                      _signIn();
+                      //Navigator.push(
+                        //context,
+                        //MaterialPageRoute(
+                            //builder: (context) => NavigationBar()),
+                      //);
                     }),
               )
             ],
@@ -268,6 +274,31 @@ class _SignInState extends State<SignIn> {
   void _toggleSignInButton() {
     CustomSnackBar(context, const Text('Login button pressed'));
   }
+
+  void _signIn() {
+    var email = loginEmailController.text;
+    var password = loginPasswordController.text;
+
+    login(email, password);
+  }
+
+  String mensaje = "";
+
+  Future<List> login(email, password) async {
+    var dio = Dio();
+    Response response; 
+    response = await dio.post('http://localhost/login.php', queryParameters: {'email': email, 'password': password, 'action' : 'LOGIN'})
+    .then((response) {
+      var data = response.data['customer_id'];
+      if(data != null){ 
+        _toggleSignInButton();
+      }
+    })
+    .catchError((onError, stackError) {
+      print(stackError);
+    });
+  }
+  
 
   void _toggleLogin() {
     setState(() {

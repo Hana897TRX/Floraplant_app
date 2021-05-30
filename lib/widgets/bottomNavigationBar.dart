@@ -4,6 +4,7 @@ import 'package:floramundo_app/pages/payment.dart';
 import 'package:floramundo_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:floramundo_app/cart_page.dart';
 
 import '../theme.dart';
 
@@ -16,11 +17,7 @@ class NavigationBar extends StatefulWidget {
 
 class _NavigationBar extends State<NavigationBar> {
   int indexTap = 0;
-  final List<Widget> widgetsChildren = [
-    HomePage(),
-    DescripcionPago(),
-    ProfilePage()
-  ];
+  final List<Widget> widgetsChildren = [HomePage(), Cart(), ProfilePage()];
   void onTapTapped(int index) {
     setState(() {
       indexTap = index;

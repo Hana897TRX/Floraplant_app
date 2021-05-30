@@ -55,12 +55,12 @@ class _SignUpState extends State<SignUp> {
                 ),
                 child: Container(
                   width: 300.0,
-                  height: 360.0,
+                  height: 370.0,
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeName,
                           controller: signupNameController,
@@ -93,7 +93,40 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: focusNodeName,
+                          controller: signupNameController,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                          autocorrect: false,
+                          style: const TextStyle(
+                              fontFamily: 'WorkSansSemiBold',
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(FontAwesomeIcons.user,
+                                color: CustomTheme.green),
+                            hintText: 'Apellidos',
+                            hintStyle: TextStyle(
+                                fontFamily: 'WorkSansSemiBold',
+                                fontSize: 16.0,
+                                color: CustomTheme.green),
+                          ),
+                          onSubmitted: (_) {
+                            focusNodeEmail.requestFocus();
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeEmail,
                           controller: signupEmailController,
@@ -125,7 +158,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodePassword,
                           controller: signupPasswordController,
@@ -167,7 +200,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeConfirmPassword,
                           controller: signupConfirmPasswordController,
@@ -208,7 +241,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 340.0),
+                margin: const EdgeInsets.only(top: 360.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[

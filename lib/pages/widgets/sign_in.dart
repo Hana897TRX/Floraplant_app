@@ -291,9 +291,33 @@ class _SignInState extends State<SignIn> {
       'password': password,
     });
 
-    if (response.statusCode == 200) {
-      AlertDialog(
-        content: Text(response.body),
+    var data = jsonDecode(response.body);
+
+    if (response.statusCode == 200 && response.body.length > 10) {
+      if (data[0]['customer_id'] != "") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NavigationBar()),
+        );
+      }
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error de credenciales'),
+          content: const Text(
+              'El usuario o contraseña son incorrectos o no existen.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       );
     }
   }

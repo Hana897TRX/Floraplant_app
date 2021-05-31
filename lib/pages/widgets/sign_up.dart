@@ -329,7 +329,11 @@ class _SignUpState extends State<SignUp> {
       'password': _password,
     });
 
-    print(response.body);
+    if (response.statusCode == 2000) {
+      AlertDialog(
+        content: Text(response.body),
+      );
+    }
   }
 
   void _toggleSignupConfirm() {

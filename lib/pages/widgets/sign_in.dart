@@ -284,27 +284,18 @@ class _SignInState extends State<SignIn> {
   String mensaje = "";
 
   Future<http.Response> login(email, password) async {
-    final response = await http
-        .post(
-      Uri.parse("http://192.168.1.69/login.php"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'action': 'LOGIN',
-        'email': email,
-        'password': password,
-      }),
-    )
-        .then((value) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => NavigationBar()),
-      );
-      return true;
-    }).catchError((error) {
-      return false;
+    final response =
+        await http.post(Uri.parse("http://192.168.1.69/login.php"), body: {
+      'action': 'LOGIN',
+      'email': email,
+      'password': password,
     });
+
+    if (response.statusCode == 200) {
+      AlertDialog(
+        content: Text(response.body),
+      );
+    }
   }
 
   void _toggleLogin() {

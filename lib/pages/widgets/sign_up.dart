@@ -314,23 +314,22 @@ class _SignUpState extends State<SignUp> {
     String _password = signupPasswordController.text;
     String _email = signupEmailController.text;
 
+    print(_email);
+
     register(_name, _lastName, _email, _password);
   }
 
   Future<http.Response> register(_name, _lastname, _email, _password) async {
-    return http.post(
-      Uri.parse('http://192.168.1.69/login.php'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'action': 'NEW_USER',
-        'name': _name,
-        'lastname': _lastname,
-        'email': _email,
-        'password': _password,
-      }),
-    );
+    final response =
+        await http.post(Uri.parse('http://192.168.1.69/login.php'), body: {
+      'action': "NEW_USER",
+      'name': _name,
+      'lastname': _lastname,
+      'email': _email,
+      'password': _password,
+    });
+
+    print(response.body);
   }
 
   void _toggleSignupConfirm() {

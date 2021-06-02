@@ -10,13 +10,17 @@ class Cart extends StatefulWidget {
 }
 
 class _CartPageState extends State<Cart> {
-  List<String> products = [];
+  List<String> _products = [];
+  List<String> _cantidads = [];
   @override
   void initState() {
     super.initState();
     List<String> guardados = ["Orquidea", "Maceta", "Girasol", "Papaya"];
+    List<String> cantidades = ["1", "89", "100", "5"];
     CartSharedPreferences.setProductos(guardados);
-    products = CartSharedPreferences.getProductos() ?? [];
+    CartSharedPreferences.setCantidades(cantidades);
+    _products = CartSharedPreferences.getProductos() ?? [];
+    _cantidads = CartSharedPreferences.getCantidades() ?? [];
   }
 
   @override
@@ -75,10 +79,14 @@ class _CartPageState extends State<Cart> {
       child: Column(
         children: [
           cardTitle,
-          CartProduct('assets/img/exampleplant.png', products[0], 75),
-          CartProduct('assets/img/exampleplant.png', products[1], 75),
-          CartProduct('assets/img/exampleplant.png', products[2], 75),
-          CartProduct('assets/img/exampleplant.png', products[3], 75),
+          CartProduct('assets/img/exampleplant.png', _products[0],
+              double.parse(_cantidads[0])),
+          CartProduct('assets/img/exampleplant.png', _products[1],
+              double.parse(_cantidads[1])),
+          CartProduct('assets/img/exampleplant.png', _products[2],
+              double.parse(_cantidads[2])),
+          CartProduct('assets/img/exampleplant.png', _products[3],
+              double.parse(_cantidads[3])),
           cardCheck,
         ],
       ),

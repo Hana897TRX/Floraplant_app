@@ -23,16 +23,16 @@ class Producto {
       this.category,
       this.description,
       this.imagePath,
-      this.comunName,
-      this.gender,
-      this.family,
-      this.origin,
-      this.presentation,
-      this.cuttingBox,
+      this.comunName, //no hay
+      this.gender, //no hay
+      this.family, //no hay dato explicito de esto, pero hay relacionados
+      this.origin, //no hay
+      this.presentation, //no hay
+      this.cuttingBox, //ni sé qué es
       this.weight,
       this.dimensions,
-      this.code,
-      this.guidePath,
-      this.note,
+      this.code, 
+      this.guidePath, //ni sé qué es
+      this.note, //no hay
       this.price);
 }

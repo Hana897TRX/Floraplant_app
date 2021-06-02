@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:floramundo_app/catalogueCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'popularCard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
+  List<Widget> popularProducts;
+
   @override
   Widget build(BuildContext context) {
+    getPopus();
+
     final floraplantLogo = Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.02,
@@ -105,8 +112,9 @@ class HomePage extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        children: [
-          PopularCard('assets/img/exampleplant.png', 'Indoor',
+        children:
+          popularProducts
+          /*PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
@@ -115,8 +123,8 @@ class HomePage extends StatelessWidget {
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90),
-        ],
+              'Great Balls of Fire White', 90),*/
+        
       ),
     );
     final textPopular = Container(
@@ -179,5 +187,38 @@ class HomePage extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  Future<http.Response> getProducts() async {
+    final response =
+        await http.post(Uri.parse("http://192.168.1.69/productos.php"), body: {
+      'action': 'GET_ALL'
+    });
+
+    List data = jsonDecode(response.body);
+    /*
+    if(response.statusCode == 200 && response.body.length > 10){
+      for(int i = 0; i < data.length; i++){
+        PopularCard popularCard = new PopularCard(_imgPath, _category, _plantTitle, _cost);
+        popularProducts.add();
+      }
+    }
+    */
+  }
+
+  Future<http.Response> getPopus() async {
+    final response =
+        await http.post(Uri.parse("http://192.168.1.69/productos.php"), body: {
+      'action': 'GET_POPUS'
+    });
+
+    var dataPopus = jsonDecode(response.body);
+
+    if(response.statusCode == 200 && response.body.length > 10){
+      for(int i = 0; i < dataPopus.length; i++){
+        PopularCard popularCard = new PopularCard("assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["ce_product.name"], dataPopus[i]["ce_product.price"]);
+        popularProducts.add(popularCard);
+      }
+    }
   }
 }

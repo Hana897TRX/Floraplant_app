@@ -18,6 +18,7 @@ class _SignUpState extends State<SignUp> {
   final FocusNode focusNodePassword = FocusNode();
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
+  final FocusNode focusNodeLastName = FocusNode();
   final FocusNode focusNodeName = FocusNode();
 
   bool _obscureTextPassword = true;
@@ -25,6 +26,7 @@ class _SignUpState extends State<SignUp> {
 
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupNameController = TextEditingController();
+  TextEditingController signupLastNameController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
       TextEditingController();
@@ -95,8 +97,8 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.only(
                             top: 12.0, bottom: 12.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: focusNodeName,
-                          controller: signupNameController,
+                          focusNode: focusNodeLastName,
+                          controller: signupLastNameController,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
                           autocorrect: false,
@@ -279,11 +281,14 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     onPressed: () {
+                      _register();
+                      /*
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => NavigationBar()),
                       );
+                      */
                     }),
               )
             ],
@@ -305,22 +310,30 @@ class _SignUpState extends State<SignUp> {
 
   void _register() {
     String _name = signupNameController.text;
+    String _lastName = signupLastNameController.text;
     String _password = signupPasswordController.text;
     String _email = signupEmailController.text;
+
+    print(_email);
+
+    register(_name, _lastName, _email, _password);
   }
 
-  Future<http.Response> login(email, password) async {
-    return http.post(
-      Uri.parse('http://localhost/register.php'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'action': 'LOGIN',
-        'email': email,
-        'password': password,
-      }),
-    );
+  Future<http.Response> register(_name, _lastname, _email, _password) async {
+    final response =
+        await http.post(Uri.parse('http://192.168.1.69/login.php'), body: {
+      'action': "NEW_USER",
+      'name': _name,
+      'lastname': _lastname,
+      'email': _email,
+      'password': _password,
+    });
+
+    if (response.statusCode == 2000) {
+      AlertDialog(
+        content: Text(response.body),
+      );
+    }
   }
 
   void _toggleSignupConfirm() {

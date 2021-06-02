@@ -8,12 +8,10 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
-  List<Widget> popularProducts;
+  List<Widget> popularProducts = new List<Widget>();
 
   @override
   Widget build(BuildContext context) {
-    getPopus();
-
     final floraplantLogo = Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.02,
@@ -108,13 +106,27 @@ class HomePage extends StatelessWidget {
       ),
     );
     final popularPlants = Container(
-      height: 100,
-      child: ListView(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        children:
-          popularProducts
-          /*PopularCard('assets/img/exampleplant.png', 'Indoor',
+        height: 100,
+        child: //ListView(
+            //shrinkWrap: true,
+            //scrollDirection: Axis.horizontal,
+            //children:
+            FutureBuilder(
+                future: getPopus(context),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    Container(
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Text('${snapshot.data[index].title}');
+                            }));
+                  }
+                })
+        /*PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
@@ -124,9 +136,9 @@ class HomePage extends StatelessWidget {
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),*/
-        
-      ),
-    );
+
+        //),
+        );
     final textPopular = Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.02,
@@ -190,10 +202,9 @@ class HomePage extends StatelessWidget {
   }
 
   Future<http.Response> getProducts() async {
-    final response =
-        await http.post(Uri.parse("http://192.168.1.69/productos.php"), body: {
-      'action': 'GET_ALL'
-    });
+    final response = await http.post(
+        Uri.parse("http://192.168.1.69/productos.php"),
+        body: {'action': 'GET_ALL'});
 
     List data = jsonDecode(response.body);
     /*
@@ -206,19 +217,25 @@ class HomePage extends StatelessWidget {
     */
   }
 
-  Future<http.Response> getPopus() async {
-    final response =
-        await http.post(Uri.parse("http://192.168.1.69/productos.php"), body: {
-      'action': 'GET_POPUS'
-    });
+  Future<List<Widget>> getPopus(context) async {
+    final response = await http.post(
+        Uri.parse("http://192.168.1.69/productos.php"),
+        body: {'action': 'GET_POPUS'});
+
+    print(response.body);
 
     var dataPopus = jsonDecode(response.body);
-
-    if(response.statusCode == 200 && response.body.length > 10){
-      for(int i = 0; i < dataPopus.length; i++){
-        PopularCard popularCard = new PopularCard("assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["ce_product.name"], dataPopus[i]["ce_product.price"]);
+    print(dataPopus);
+    if (response.statusCode == 200 && response.body.length > 10) {
+      for (int i = 0; i < dataPopus.length; i++) {
+        PopularCard popularCard = new PopularCard(
+            "assets/img/exampleplant.png",
+            dataPopus[i]["catName"],
+            dataPopus[i]["name"],
+            double.parse(dataPopus[i]["price"]));
         popularProducts.add(popularCard);
       }
     }
+    return popularProducts;
   }
 }

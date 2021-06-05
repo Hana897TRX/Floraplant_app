@@ -1,9 +1,9 @@
 class Producto {
   int id;
   String name;
-  String category = "";
-  String description = "";
-  String imagePath = "";
+  String category;
+  String description;
+  String imagePath;
   String comunName = "";
   String gender = "";
   String family = "";

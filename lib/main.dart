@@ -1,6 +1,7 @@
 import 'package:floramundo_app/home_page.dart';
 import 'package:floramundo_app/pages/login_page.dart';
 import 'package:floramundo_app/utils/shared_preferences_cart.dart';
+import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';

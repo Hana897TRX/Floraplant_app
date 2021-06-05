@@ -212,7 +212,7 @@ class _SignInState extends State<SignIn> {
                 const Padding(
                   padding: EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    'Usuario temporal',
+                    'Invitado',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.white,

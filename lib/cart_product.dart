@@ -1,14 +1,20 @@
 import 'package:floramundo_app/theme.dart';
 import 'package:flutter/material.dart';
 
-class CartProduct extends StatelessWidget {
-  String _imagePath = "";
-  String _plantTitle = "";
-  double _price = 0.0;
-  String cantidad = "1";
+class CartProduct extends StatefulWidget {
+  String imagePath = "";
+  String plantTitle = "";
+  double price = 0.0;
+  int cantidad = 1;
+  CartProduct(this.imagePath, this.plantTitle, this.price, this.cantidad,
+      {Key key})
+      : super(key: key);
 
-  CartProduct(this._imagePath, this._plantTitle, this._price, this.cantidad);
+  @override
+  _CartProductState createState() => _CartProductState();
+}
 
+class _CartProductState extends State<CartProduct> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +28,7 @@ class CartProduct extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10),
               child: Image(
-                image: AssetImage(_imagePath),
+                image: AssetImage(widget.imagePath),
               ),
             ),
             Column(
@@ -30,7 +36,7 @@ class CartProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _plantTitle,
+                  widget.plantTitle,
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -48,14 +54,14 @@ class CartProduct extends StatelessWidget {
                       margin: EdgeInsets.only(
                         left: 10,
                       ),
-                      child: Text(_price.toString()),
+                      child: Text(widget.price.toString()),
                     )
                   ],
                 ),
                 Row(
                   children: [
                     ElevatedButton(
-                      onPressed: () => {},
+                      onPressed: () => actualzarCantidad(-1),
                       child: Text(
                         '-',
                         style: TextStyle(
@@ -68,7 +74,7 @@ class CartProduct extends StatelessWidget {
                     Container(
                       width: 50,
                       child: Text(
-                        cantidad,
+                        widget.cantidad.toString(),
                         style: TextStyle(
                             color: CustomTheme.pink,
                             fontWeight: FontWeight.bold,
@@ -95,5 +101,11 @@ class CartProduct extends StatelessWidget {
         )),
       ),
     );
+  }
+
+  void actualzarCantidad(int inc) {
+    setState(() {
+      widget.cantidad += inc;
+    });
   }
 }

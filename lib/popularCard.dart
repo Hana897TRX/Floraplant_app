@@ -1,4 +1,7 @@
+import 'package:floramundo_app/pages/payment.dart';
 import 'package:flutter/material.dart';
+
+import 'cart_page.dart';
 
 class PopularCard extends StatefulWidget {
   String imgPath = "";
@@ -68,6 +71,7 @@ class _PopularCard extends State<PopularCard> {
   void plantSelected(int id, context) {
     print(id);
 
+    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>Cart(id)));
     // ----- REDIRIGIR A PANTALLA DE PRODUCTO CON PARAMETRO DEL ID
 
     // Navigator.push(

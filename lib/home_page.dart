@@ -1,10 +1,32 @@
+import 'dart:convert';
+
 import 'package:floramundo_app/catalogueCard.dart';
+import 'package:floramundo_app/models/producto_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'popularCard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:http/http.dart' as http;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePage createState() => _HomePage();
+}
+
+class _HomePage extends State<HomePage> {
+  List<Widget> popularProducts = [];
+
+  @override
+    void initState() {
+      super.initState();
+      getPopus();
+
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
     final floraplantLogo = Container(
@@ -101,12 +123,36 @@ class HomePage extends StatelessWidget {
       ),
     );
     final popularPlants = Container(
-      height: 100,
-      child: ListView(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        children: [
-          PopularCard('assets/img/exampleplant.png', 'Indoor',
+        height: 100,
+        child: new ListView.builder(
+          itemCount: popularProducts.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) =>
+                      buildPopularCard(context, index),
+        ),
+
+       // child: //ListView(
+            //shrinkWrap: true,
+            //scrollDirection: Axis.horizontal,
+            //children:
+            /*
+            FutureBuilder(
+                future: getPopus(context),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    Container(
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Text('${snapshot.data[index].title}');
+                            }));
+                  }
+                })*/
+        /*PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
@@ -115,10 +161,10 @@ class HomePage extends StatelessWidget {
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90),
-        ],
-      ),
-    );
+              'Great Balls of Fire White', 90),*/
+
+        //),
+        );
     final textPopular = Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.02,
@@ -180,4 +226,51 @@ class HomePage extends StatelessWidget {
       ),
     ));
   }
+
+  Future<http.Response> getProducts() async {
+    final response = await http.post(
+        Uri.parse("http://192.168.1.69/productos.php"),
+        body: {'action': 'GET_ALL'});
+
+    List data = jsonDecode(response.body);
+    /*
+    if(response.statusCode == 200 && response.body.length > 10){
+      for(int i = 0; i < data.length; i++){
+        PopularCard popularCard = new PopularCard(_imgPath, _category, _plantTitle, _cost);
+        popularProducts.add();
+      }
+    }
+    */
+  }
+
+  Future<List<Widget>> getPopus() async {
+    final response = await http.post(
+        Uri.parse("http://192.168.1.69/productos.php"),
+        body: {'action': 'GET_POPUS'});
+
+    print(response.body);
+
+    var dataPopus = jsonDecode(response.body);
+    print(dataPopus);
+    if (response.statusCode == 200 && response.body.length > 10) {
+      for (int i = 0; i < dataPopus.length; i++) {
+        PopularCard popularCard = new PopularCard(
+            dataPopus[i]["product_id"],
+            "assets/img/exampleplant.png",
+            dataPopus[i]["catName"],
+            dataPopus[i]["name"],
+            double.parse(dataPopus[i]["price"]));
+        popularProducts.add(popularCard);
+      }
+    }
+    return popularProducts;
+  }
+
+
+Widget buildPopularCard(BuildContext context, int index){
+  return popularProducts[index];
+}
+
+
+
 }

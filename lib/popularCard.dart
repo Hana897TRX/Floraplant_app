@@ -5,8 +5,9 @@ class PopularCard extends StatelessWidget {
   String _category = "";
   String _plantTitle = "";
   double _cost = 0.0;
+  int _id=0;
 
-  PopularCard(this._imgPath, this._category, this._plantTitle, this._cost);
+  PopularCard(this._id,this._imgPath, this._category, this._plantTitle, this._cost);
 
   @override
   Widget build(BuildContext context) {

@@ -75,5 +75,8 @@ class _CatalogueCard extends State<CatalogueCard>{
 
   void plantSelected(int id, context){
     print(id);
+    //Navigator.of(context).push(MaterialPageRoute(builder:(context)=>ClaseSegundaPantalla(id)));
+    // ----- CAMBIA LA CLASE COMENTADA LLAMADA "ClaseSegundaPantalla" POR LA CLASE QUE VAS A CREAR DEL PRODUCTO
+
   }
 }

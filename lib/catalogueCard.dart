@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CatalogueCard extends StatelessWidget {
+class CatalogueCard extends StatefulWidget {
   String _imgPath = "";
   String _category = "";
   String _title = "";
   double _price = 0.0;
-  int _code = 0;
-
+  int _id = 0;
   CatalogueCard(
-      this._imgPath, this._category, this._title, this._price, this._code);
+      this._id, this._imgPath, this._category, this._title, this._price);
 
+  @override
+  _CatalogueCard createState() => _CatalogueCard();
+
+}
+
+class _CatalogueCard extends State<CatalogueCard>{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +32,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _category,
+                widget._category,
                 style: TextStyle(
                   color: Color(0xFFBEBEBE),
                 ),
@@ -35,7 +40,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _title,
+                widget._title,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -49,7 +54,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _price.toString(),
+                widget._price.toString(),
               ),
             ),
             Container(
@@ -60,14 +65,10 @@ class CatalogueCard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              child: Text(
-                _code.toString(),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
+
 }

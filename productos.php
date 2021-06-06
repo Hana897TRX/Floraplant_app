@@ -81,8 +81,8 @@ if("GET_PRODUCT"==$action){
 
 //jalar productos (populares)
 if("GET_POPUS"==$action){
-    $result=$conn->query("SELECT ce_product.product_id, ce_product.model, ce_product.image, ce_product.price, ce_product.quantity,ce_product.length, ce_product.width, ce_product.height, ce_product.weight, ce_product_description.name, ce_product_description.description, ce_category_description.name as catName FROM ce_product join ce_product_description on ce_product.product_id=ce_product_description.product_id join ce_product_to_category on ce_product_to_category.product_id = ce_product.product_id join ce_category_description on ce_category_description.category_id = ce_product_to_category.category_id order by ce_product.viewed ORDER BY RAND() LIMIT 10;");
-    if($result ->num_rows>  0){
+    $result=$conn->query("SELECT DISTINCT (ce_product.viewed), ce_product.product_id, ce_category_description.name as catName, ce_product.model, ce_product_description.name, ce_product.image, ce_product.price, ce_product.quantity,ce_product.length, ce_product.width, ce_product.height, ce_product.weight, ce_product_description.description FROM ce_product join ce_product_description on ce_product.product_id=ce_product_description.product_id join ce_product_to_category on ce_product_to_category.product_id = ce_product.product_id join ce_category_description on ce_category_description.category_id = ce_product_to_category.category_id GROUP by ce_product.product_id order by ce_product.viewed desc LIMIT 10;") or die ($conn->error);
+    if($result->num_rows>  0){
         while($row = $result->fetch_assoc()){
             $db_data[]=$row;
         }

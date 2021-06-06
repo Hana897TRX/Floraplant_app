@@ -19,13 +19,10 @@ class _HomePage extends State<HomePage> {
   List<Widget> popularProducts = [];
 
   @override
-    void initState() {
-      super.initState();
-      getPopus();
-
-    }
-
-
+  void initState() {
+    super.initState();
+    getPopus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,20 +120,20 @@ class _HomePage extends State<HomePage> {
       ),
     );
     final popularPlants = Container(
-        height: 100,
-        child: new ListView.builder(
-          itemCount: popularProducts.length,
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) =>
-                      buildPopularCard(context, index),
-        ),
+      height: 150,
+      child: new ListView.builder(
+        itemCount: popularProducts.length,
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) =>
+            buildPopularCard(context, index),
+      ),
 
-       // child: //ListView(
-            //shrinkWrap: true,
-            //scrollDirection: Axis.horizontal,
-            //children:
-            /*
+      // child: //ListView(
+      //shrinkWrap: true,
+      //scrollDirection: Axis.horizontal,
+      //children:
+      /*
             FutureBuilder(
                 future: getPopus(context),
                 builder: (context, AsyncSnapshot snapshot) {
@@ -152,7 +149,7 @@ class _HomePage extends State<HomePage> {
                             }));
                   }
                 })*/
-        /*PopularCard('assets/img/exampleplant.png', 'Indoor',
+      /*PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),
@@ -163,8 +160,8 @@ class _HomePage extends State<HomePage> {
           PopularCard('assets/img/exampleplant.png', 'Indoor',
               'Great Balls of Fire White', 90),*/
 
-        //),
-        );
+      //),
+    );
     final textPopular = Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.02,
@@ -211,16 +208,15 @@ class _HomePage extends State<HomePage> {
           floraplantLogo,
           search,
           categoryMenu,
-          ListView(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            children: [
+          SizedBox(
+            height: 800,
+            child: Column(children: [
               textPopular,
               popularPlants,
               textCatalogo,
               catalogue,
               catalogue
-            ],
+            ]),
           ),
         ],
       ),
@@ -229,48 +225,38 @@ class _HomePage extends State<HomePage> {
 
   Future<http.Response> getProducts() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.69/productos.php"),
+        Uri.parse("http://192.168.100.27/productos.php"),
         body: {'action': 'GET_ALL'});
 
     List data = jsonDecode(response.body);
-    /*
-    if(response.statusCode == 200 && response.body.length > 10){
-      for(int i = 0; i < data.length; i++){
-        PopularCard popularCard = new PopularCard(_imgPath, _category, _plantTitle, _cost);
-        popularProducts.add();
-      }
-    }
-    */
   }
 
   Future<List<Widget>> getPopus() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.69/productos.php"),
+        Uri.parse("http://192.168.100.27/productos.php"),
         body: {'action': 'GET_POPUS'});
 
-    print(response.body);
+    var dataPopus;
+    setState(() {
+      dataPopus = jsonDecode(response.body);
+    });
 
-    var dataPopus = jsonDecode(response.body);
-    print(dataPopus);
     if (response.statusCode == 200 && response.body.length > 10) {
-      for (int i = 0; i < dataPopus.length; i++) {
+      for (int i = 0; i < 10; i++) {
         PopularCard popularCard = new PopularCard(
-            dataPopus[i]["product_id"],
+            int.parse(dataPopus[i]["product_id"]),
             "assets/img/exampleplant.png",
             dataPopus[i]["catName"],
             dataPopus[i]["name"],
             double.parse(dataPopus[i]["price"]));
         popularProducts.add(popularCard);
+        print(popularCard);
       }
     }
     return popularProducts;
   }
 
-
-Widget buildPopularCard(BuildContext context, int index){
-  return popularProducts[index];
-}
-
-
-
+  Widget buildPopularCard(BuildContext context, int index) {
+    return popularProducts[index];
+  }
 }

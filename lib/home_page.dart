@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:floramundo_app/catalogueCard.dart';
 import 'package:floramundo_app/models/producto_model.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   List<Widget> popularProducts = [];
+  List<Widget> products1 = [];
+  List<Widget> products2 = [];
 
   @override
   void initState() {
     super.initState();
     getPopus();
+    getProducts1();
+    getProducts2();
   }
 
   @override
@@ -186,19 +189,26 @@ class _HomePage extends State<HomePage> {
     );
     final catalogue = Container(
       height: 225,
-      child: ListView(
+      child: ListView.builder(
+         itemCount: products1.length,
         scrollDirection: Axis.horizontal,
-        children: [
-          CatalogueCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90, 21955),
-          CatalogueCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90, 21955),
-          CatalogueCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90, 21955),
-          CatalogueCard('assets/img/exampleplant.png', 'Indoor',
-              'Great Balls of Fire White', 90, 21955),
-        ],
-      ),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) =>
+            buildCatalogueCard(context, index),
+      ) 
+      
+    );
+
+      final catalogue2 = Container(
+      height: 225,
+      child: ListView.builder(
+         itemCount: products2.length,
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) =>
+            buildCatalogueCard2(context, index),
+      ) 
+      
     );
 
     return Container(
@@ -215,7 +225,7 @@ class _HomePage extends State<HomePage> {
               popularPlants,
               textCatalogo,
               catalogue,
-              catalogue
+              catalogue2
             ]),
           ),
         ],
@@ -256,7 +266,62 @@ class _HomePage extends State<HomePage> {
     return popularProducts;
   }
 
+  Future<List<Widget>> getProducts1() async {
+    final response = await http.post(
+        Uri.parse("http://192.168.100.27/productos.php"),
+        body: {'action': 'GET_ALL'});
+
+    var dataPopus;
+    setState(() {
+      dataPopus = jsonDecode(response.body);
+    });
+
+    if (response.statusCode == 200 && response.body.length > 10) {
+      for (int i = 0; i < 10; i++) {
+        CatalogueCard catalogueCard = new CatalogueCard(int.parse(dataPopus[i]["product_id"])
+        , "assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["name"]
+        , double.parse(dataPopus[i]["price"]));
+        products1.add(catalogueCard);
+        print(catalogueCard);
+      }
+    }
+    return products1;
+  }
+
+   Future<List<Widget>> getProducts2() async {
+    final response = await http.post(
+        Uri.parse("http://192.168.100.27/productos.php"),
+        body: {'action': 'GET_ALL'});
+
+    var dataPopus;
+    setState(() {
+      dataPopus = jsonDecode(response.body);
+    });
+
+    if (response.statusCode == 200 && response.body.length > 10) {
+      for (int i = 0; i < 10; i++) {
+        CatalogueCard catalogueCard = new CatalogueCard(int.parse(dataPopus[i]["product_id"])
+        , "assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["name"]
+        , double.parse(dataPopus[i]["price"]));
+        products2.add(catalogueCard);
+        print(catalogueCard);
+      }
+    }
+    return products2;
+  }
+
+
   Widget buildPopularCard(BuildContext context, int index) {
     return popularProducts[index];
   }
+
+  Widget buildCatalogueCard(BuildContext context, int index) {
+    return products1[index];
+  }
+
+  Widget buildCatalogueCard2(BuildContext context, int index) {
+    return products2[index];
+  }
+
+
 }

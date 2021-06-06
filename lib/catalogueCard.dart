@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
-class CatalogueCard extends StatelessWidget {
+class CatalogueCard extends StatefulWidget {
   String _imgPath = "";
   String _category = "";
   String _title = "";
   double _price = 0.0;
-  int _code = 0;
-
+  int _id = 0;
   CatalogueCard(
-      this._imgPath, this._category, this._title, this._price, this._code);
+      this._id, this._imgPath, this._category, this._title, this._price);
 
   @override
+  _CatalogueCard createState() => _CatalogueCard();
+
+}
+
+class _CatalogueCard extends State<CatalogueCard>{
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () => plantSelected(widget._id, context),
+    child: Container(
       padding: EdgeInsets.all(5),
       child: Card(
         child: Column(
@@ -27,7 +34,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _category,
+                widget._category,
                 style: TextStyle(
                   color: Color(0xFFBEBEBE),
                 ),
@@ -35,7 +42,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _title,
+                widget._title,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -49,7 +56,7 @@ class CatalogueCard extends StatelessWidget {
             ),
             Container(
               child: Text(
-                _price.toString(),
+                widget._price.toString(),
               ),
             ),
             Container(
@@ -60,14 +67,16 @@ class CatalogueCard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              child: Text(
-                _code.toString(),
-              ),
-            ),
           ],
         ),
       ),
-    );
+    ));
+  }
+
+  void plantSelected(int id, context){
+    print(id);
+    //Navigator.of(context).push(MaterialPageRoute(builder:(context)=>ClaseSegundaPantalla(id)));
+    // ----- CAMBIA LA CLASE COMENTADA LLAMADA "ClaseSegundaPantalla" POR LA CLASE QUE VAS A CREAR DEL PRODUCTO
+
   }
 }

@@ -10,7 +10,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Cart extends StatefulWidget {
-  const Cart({Key key}) : super(key: key);
+  Cart();
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -34,7 +34,7 @@ class _CartPageState extends State<Cart> {
   @override
   void initState() {
     super.initState();
-
+    //print(widget.id);
     _productsIds = CartSharedPreferences.getProductos() ?? [];
     _cantidads = CartSharedPreferences.getCantidades() ?? [];
     // _productsIds.add("70");

@@ -17,7 +17,9 @@ class CatalogueCard extends StatefulWidget {
 class _CatalogueCard extends State<CatalogueCard>{
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () => plantSelected(widget._id, context),
+    child: Container(
       padding: EdgeInsets.all(5),
       child: Card(
         child: Column(
@@ -68,7 +70,10 @@ class _CatalogueCard extends State<CatalogueCard>{
           ],
         ),
       ),
-    );
+    ));
   }
 
+  void plantSelected(int id, context){
+    print(id);
+  }
 }

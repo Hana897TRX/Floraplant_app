@@ -245,7 +245,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getPopus() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.69/productos.php"),
+        Uri.parse("http://192.168.100.65/productos.php"),
         body: {'action': 'GET_POPUS'});
 
     print(response.body);

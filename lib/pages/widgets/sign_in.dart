@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:floramundo_app/utils/authentication_user.dart';
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:floramundo_app/theme.dart';
@@ -23,6 +25,23 @@ class _SignInState extends State<SignIn> {
 
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  AuthenticationUser authenticationUser;
+  @override
+  void initState() {
+    super.initState();
+    authenticationUser = AuthenticationUser(secureStorage);
+
+    authenticationUser.getSession().then((id) {
+      print(id);
+      if (id != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NavigationBar()),
+        );
+      }
+    });
+  }
 
   bool _obscureTextPassword = true;
 
@@ -212,7 +231,7 @@ class _SignInState extends State<SignIn> {
                 const Padding(
                   padding: EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    'Usuario temporal',
+                    'Invitado',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.white,
@@ -285,7 +304,7 @@ class _SignInState extends State<SignIn> {
 
   Future<http.Response> login(email, password) async {
     final response =
-        await http.post(Uri.parse("http://192.168.1.69/login.php"), body: {
+        await http.post(Uri.parse("http://192.168.100.27/login.php"), body: {
       'action': 'LOGIN',
       'email': email,
       'password': password,
@@ -295,6 +314,7 @@ class _SignInState extends State<SignIn> {
 
     if (response.statusCode == 200 && response.body.length > 10) {
       if (data[0]['customer_id'] != "") {
+        authenticationUser.saveSession(int.parse(data[0]['customer_id']));
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NavigationBar()),

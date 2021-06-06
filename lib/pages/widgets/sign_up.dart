@@ -321,7 +321,7 @@ class _SignUpState extends State<SignUp> {
 
   Future<http.Response> register(_name, _lastname, _email, _password) async {
     final response =
-        await http.post(Uri.parse('http://192.168.1.69/login.php'), body: {
+        await http.post(Uri.parse('http://192.168.100.27/login.php'), body: {
       'action': "NEW_USER",
       'name': _name,
       'lastname': _lastname,

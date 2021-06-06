@@ -5,6 +5,7 @@ import 'package:floramundo_app/widgets/floraMundoLogo.dart';
 import 'package:floramundo_app/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:floramundo_app/theme.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
@@ -23,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   Color left = Colors.black;
   Color right = Colors.white;
-
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   @override
   void dispose() {
     _pageController?.dispose();
@@ -209,13 +210,7 @@ class _ProfilePageState extends State<ProfilePage>
               Padding(
                   padding: const EdgeInsets.only(top: 90.0),
                   child: GestureDetector(
-                    onTap: () => {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                        (route) => false,
-                      )
-                    },
+                    onTap: cerrarSesion,
                     child: Card(
                         elevation: 2.0,
                         color: CustomTheme.white,
@@ -248,5 +243,14 @@ class _ProfilePageState extends State<ProfilePage>
         ),
       ),
     ));
+  }
+
+  void cerrarSesion() {
+    secureStorage.delete(key: "SESSION");
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+      (route) => false,
+    );
   }
 }

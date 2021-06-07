@@ -20,7 +20,7 @@ dependencies:
   gradient_widgets: ^0.6.0
   http: ^0.13.3
   fluttertoast: ^8.0.7
-
+  flutter_secure_storage: ^4.2.0
   shared_preferences: ^0.5.12+4
   
 

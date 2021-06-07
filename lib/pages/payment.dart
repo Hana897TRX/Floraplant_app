@@ -133,15 +133,15 @@ class DescripcionPago extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextButton.icon(
-                            label: const Text('Mercado pago'),
-                            icon: Icon(
-                                Icons.payment), //CAMBIAR ÍCONO POR EL DE PAYPAL
+                            label: const Text('Paypal'),
+                            icon: Icon(FontAwesomeIcons
+                                .ccPaypal), //CAMBIAR ÍCONO POR EL DE PAYPAL
                             onPressed: () {/* ... */},
                           ),
                           const SizedBox(width: 8),
                           TextButton.icon(
-                            label: const Text('Tarjeta'),
-                            icon: Icon(Icons.payment),
+                            label: const Text('Depósito'),
+                            icon: Icon(FontAwesomeIcons.moneyCheckAlt),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -208,7 +208,7 @@ class TarjetaDatos extends StatelessWidget {
                                         }),
                               ),
                               Text(
-                                'Método de pago',
+                                'Deposito bancario',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 24.0,
@@ -250,55 +250,6 @@ class TarjetaDatos extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const ListTile(
-                                subtitle: Text(
-                              'Fecha de expiración',
-                              textAlign: TextAlign.left,
-                            )),
-                            Row(
-                              //ACÁ SERÁN COMBO BOXES
-                              children: [
-                                SizedBox(
-                                  width: 100,
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        hintText: 'Mes.'),
-                                  ),
-                                ),
-                                SizedBox(width: 20),
-                                SizedBox(
-                                  width: 100,
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        hintText: 'Año'),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const ListTile(
-                                subtitle: Text(
-                              'CVV',
-                              textAlign: TextAlign.left,
-                            )),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'CVV'),
-                            ),
                           ],
                         ),
                       ),
@@ -306,9 +257,9 @@ class TarjetaDatos extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextButton.icon(
-                            label: const Text('Terminar ingreso de datos'),
-                            icon: Icon(
-                                Icons.payment), //CAMBIAR ÍCONO POR EL DE PAYPAL
+                            label: const Text('Continuar'),
+                            icon: Icon(Icons
+                                .arrow_right), //CAMBIAR ÍCONO POR EL DE PAYPAL
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -384,7 +335,7 @@ class ResumenPago extends StatelessWidget {
                                           }),
                                 ),
                                 Text(
-                                  'Información de compra',
+                                  'Información de envío',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 24.0,
@@ -458,43 +409,35 @@ class ResumenPago extends StatelessWidget {
                                 ),
                               ],
                             )),
-                        const ListTile(
-                            subtitle: Text(
-                          'Número de tarjeta',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        Text(
-                          "Lorem pisu",
-                          style: TextStyle(color: Colors.black45),
-                        ),
-                        const ListTile(
-                            subtitle: Text(
-                          'Nombre en la tarjeta',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        Text(
-                          "Lorem pisu",
-                          style: TextStyle(color: Colors.black45),
-                        ),
-                        const ListTile(
-                            subtitle: Text(
-                          'Fecha de expiración',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
+                        // const ListTile(
+                        //     subtitle: Text(
+                        //   'Número de tarjeta',
+                        //   textAlign: TextAlign.left,
+                        //   style: TextStyle(fontWeight: FontWeight.bold),
+                        // )),
+                        // Text(
+                        //   "Lorem pisu",
+                        //   style: TextStyle(color: Colors.black45),
+                        // ),
+                        // const ListTile(
+                        //     subtitle: Text(
+                        //   'Nombre en la tarjeta',
+                        //   textAlign: TextAlign.left,
+                        //   style: TextStyle(fontWeight: FontWeight.bold),
+                        // )),
+                        // Text(
+                        //   "Lorem pisu",
+                        //   style: TextStyle(color: Colors.black45),
+                        // ),
+                        // const ListTile(
+                        //     subtitle: Text(
+                        //   'Fecha de expiración',
+                        //   textAlign: TextAlign.left,
+                        //   style: TextStyle(fontWeight: FontWeight.bold),
+                        // )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            TextButton.icon(
-                              label: const Text('Regresar'),
-                              icon: Icon(
-                                  Icons.error), //CAMBIAR ÍCONO POR EL DE PAYPAL
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
                             const SizedBox(width: 8),
                             ElevatedButton(
                               onPressed: () {

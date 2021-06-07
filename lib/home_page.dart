@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'popularCard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
   @override
@@ -141,7 +142,7 @@ class HomePage extends StatelessWidget {
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       ),
     );
-    final catalogue = Container(
+    var catalogue = Container(
       height: 225,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -179,5 +180,16 @@ class HomePage extends StatelessWidget {
         ],
       ),
     ));
+
+    void _getProducts() {
+      
+    }
+
+    Future<http.Response> getProducts(email, password) async {
+      return await http
+          .post(Uri.parse('http://192.168.1.69/products.php'), body: {
+            'action' : "GET_ALL"
+          });
+    }
   }
 }

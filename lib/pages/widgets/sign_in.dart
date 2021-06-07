@@ -284,42 +284,44 @@ class _SignInState extends State<SignIn> {
   String mensaje = "";
 
   Future<http.Response> login(email, password) async {
-    final response =
-        await http.post(Uri.parse("http://192.168.100.27/login.php"), body: {
-      'action': 'LOGIN',
-      'email': email,
-      'password': password,
-    });
+    try {
+      final response =
+          await http.post(Uri.parse("http://192.168.1.70/login.php"), body: {
+        'action': 'LOGIN',
+        'email': email,
+        'password': password,
+      });
 
-    var data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
 
-    if (response.statusCode == 200 && response.body.length > 10) {
-      if (data[0]['customer_id'] != "") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NavigationBar()),
+      if (response.statusCode == 200 && response.body.length > 10) {
+        if (data[0]['customer_id'] != "") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NavigationBar()),
+          );
+        }
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error de credenciales'),
+            content: const Text(
+                'El usuario o contraseña son incorrectos o no existen.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
         );
       }
-    } else {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error de credenciales'),
-          content: const Text(
-              'El usuario o contraseña son incorrectos o no existen.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
+    } on Exception catch (_) {}
   }
 
   void _toggleLogin() {

@@ -187,29 +187,25 @@ class _HomePage extends State<HomePage> {
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       ),
     );
-    final catalogue = Container(
-      height: 225,
-      child: ListView.builder(
-         itemCount: products1.length,
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) =>
-            buildCatalogueCard(context, index),
-      ) 
-      
-    );
+    var catalogue = Container(
+        height: 225,
+        child: ListView.builder(
+          itemCount: products1.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) =>
+              buildCatalogueCard(context, index),
+        ));
 
-      final catalogue2 = Container(
-      height: 225,
-      child: ListView.builder(
-         itemCount: products2.length,
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) =>
-            buildCatalogueCard2(context, index),
-      ) 
-      
-    );
+    final catalogue2 = Container(
+        height: 225,
+        child: ListView.builder(
+          itemCount: products2.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) =>
+              buildCatalogueCard2(context, index),
+        ));
 
     return Container(
         child: SingleChildScrollView(
@@ -231,11 +227,18 @@ class _HomePage extends State<HomePage> {
         ],
       ),
     ));
+
+    void _getProducts() {}
+
+    Future<http.Response> getProducts(email, password) async {
+      return await http.post(Uri.parse('http://192.168.1.69/products.php'),
+          body: {'action': "GET_ALL"});
+    }
   }
 
   Future<http.Response> getProducts() async {
     final response = await http.post(
-        Uri.parse("http://192.168.100.27/productos.php"),
+        Uri.parse("http://192.168.1.70/productos.php"),
         body: {'action': 'GET_ALL'});
 
     List data = jsonDecode(response.body);
@@ -243,7 +246,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getPopus() async {
     final response = await http.post(
-        Uri.parse("http://192.168.100.27/productos.php"),
+        Uri.parse("http://192.168.1.70/productos.php"),
         body: {'action': 'GET_POPUS'});
 
     var dataPopus;
@@ -268,7 +271,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getProducts1() async {
     final response = await http.post(
-        Uri.parse("http://192.168.100.27/productos.php"),
+        Uri.parse("http://192.168.1.70/productos.php"),
         body: {'action': 'GET_ALL'});
 
     var dataPopus;
@@ -278,9 +281,12 @@ class _HomePage extends State<HomePage> {
 
     if (response.statusCode == 200 && response.body.length > 10) {
       for (int i = 0; i < 10; i++) {
-        CatalogueCard catalogueCard = new CatalogueCard(int.parse(dataPopus[i]["product_id"])
-        , "assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["name"]
-        , double.parse(dataPopus[i]["price"]));
+        CatalogueCard catalogueCard = new CatalogueCard(
+            int.parse(dataPopus[i]["product_id"]),
+            "assets/img/exampleplant.png",
+            dataPopus[i]["catName"],
+            dataPopus[i]["name"],
+            double.parse(dataPopus[i]["price"]));
         products1.add(catalogueCard);
         print(catalogueCard);
       }
@@ -288,9 +294,9 @@ class _HomePage extends State<HomePage> {
     return products1;
   }
 
-   Future<List<Widget>> getProducts2() async {
+  Future<List<Widget>> getProducts2() async {
     final response = await http.post(
-        Uri.parse("http://192.168.100.27/productos.php"),
+        Uri.parse("http://192.168.1.70/productos.php"),
         body: {'action': 'GET_ALL'});
 
     var dataPopus;
@@ -300,16 +306,18 @@ class _HomePage extends State<HomePage> {
 
     if (response.statusCode == 200 && response.body.length > 10) {
       for (int i = 0; i < 10; i++) {
-        CatalogueCard catalogueCard = new CatalogueCard(int.parse(dataPopus[i]["product_id"])
-        , "assets/img/exampleplant.png", dataPopus[i]["catName"], dataPopus[i]["name"]
-        , double.parse(dataPopus[i]["price"]));
+        CatalogueCard catalogueCard = new CatalogueCard(
+            int.parse(dataPopus[i]["product_id"]),
+            "assets/img/exampleplant.png",
+            dataPopus[i]["catName"],
+            dataPopus[i]["name"],
+            double.parse(dataPopus[i]["price"]));
         products2.add(catalogueCard);
         print(catalogueCard);
       }
     }
     return products2;
   }
-
 
   Widget buildPopularCard(BuildContext context, int index) {
     return popularProducts[index];
@@ -322,6 +330,4 @@ class _HomePage extends State<HomePage> {
   Widget buildCatalogueCard2(BuildContext context, int index) {
     return products2[index];
   }
-
-
 }

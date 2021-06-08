@@ -71,12 +71,7 @@ class _PopularCard extends State<PopularCard> {
   void plantSelected(int id, context) {
     print(id);
 
-    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Cart()));
-    // ----- REDIRIGIR A PANTALLA DE PRODUCTO CON PARAMETRO DEL ID
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => {}),
-    // );
+    //Navigator.of(context).push(MaterialPageRoute(builder:(context)=>ClaseSegundaPantalla(id)));
+    // ----- CAMBIA LA CLASE COMENTADA LLAMADA "ClaseSegundaPantalla" POR LA CLASE QUE VAS A CREAR DEL PRODUCTO
   }
 }

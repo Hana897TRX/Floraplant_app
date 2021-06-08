@@ -1,21 +1,23 @@
 class Producto {
   int id;
-  String name;
-  String category;
-  String description;
-  String imagePath;
-  String comunName = "";
-  String gender = "";
-  String family = "";
-  String origin = "";
-  String presentation = "";
-  String cuttingBox = "";
-  String code = "";
-  String note = "";
-  String guidePath = "";
+  String name = "name";
+  String category = "category";
+  String description = "description";
+  String imagePath = "asdasd";
+  String comunName = "comunname";
+  String gender = "gender";
+  String family = "family";
+  String origin = "origin";
+  String presentation = "presentation";
+  String cuttingBox = "cuttinBox";
+  String code = "code";
+  String note = "note";
+  String guidePath = "guidepath";
   double price = 0.0;
   double weight = 0.0;
-  String dimensions = "";
+  String dimensions = "dimensions";
+
+  Producto.empty();
 
   Producto(
       this.id,
@@ -31,7 +33,7 @@ class Producto {
       this.cuttingBox, //ni sé qué es
       this.weight,
       this.dimensions,
-      this.code, 
+      this.code,
       this.guidePath, //ni sé qué es
       this.note, //no hay
       this.price);

@@ -66,6 +66,14 @@ class _PlantDetails extends State<PlantDetails> {
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
+                  Text(
+                    "\$ " + product.price.toString(),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.pink.shade200),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 30)),
                   Text(description),
                 ],
               ),
@@ -173,7 +181,7 @@ class _PlantDetails extends State<PlantDetails> {
           elevation: 8,
           child: Container(
             padding: EdgeInsets.all(8),
-            child: Text(noteText),
+            child: Text("NOTA\n" + noteText),
           ),
         ),
       ),
@@ -265,7 +273,7 @@ class _PlantDetails extends State<PlantDetails> {
     if (response.statusCode == 200 && response.body.length > 10) {
       product.name = data[0]['name'];
       product.id = int.parse(data[0]['product_id']);
-      product.description = data[0]['model'];
+      product.description = data[0]['description'];
       product.price = double.parse(data[0]['price']);
     }
 

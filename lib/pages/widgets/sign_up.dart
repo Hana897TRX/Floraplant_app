@@ -329,7 +329,7 @@ class _SignUpState extends State<SignUp> {
       'password': _password,
     });
 
-    if (response.statusCode == 2000) {
+    if (response.statusCode == 200) {
       AlertDialog(
         content: Text(response.body),
       );

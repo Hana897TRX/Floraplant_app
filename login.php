@@ -21,7 +21,7 @@ $action = $_POST["action"];
 if("LOGIN"==$action){
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $consultar=$conn->query("SELECT * FROM ce_customer WHERE email="."'".$email."'"." and ce_customer.password="."'".$password."';") or die($conn->error);
+    $consultar=$conn->query("SELECT * FROM ce_customer WHERE email="."'".$email."'"." and ce_customer.password=sha('".$password."');") or die($conn->error);
     $resultado=array();
     while($extraerDatos=$consultar->fetch_assoc()){
         //print_r($extraerDatos);
@@ -38,7 +38,7 @@ if("NEW_USER"==$action){
     $apellido=$_POST["lastname"];
     $email=$_POST["email"];
     $password=$_POST["password"];
-    $sql="INSERT into ce_customer values(0,0,'".$nombre."','".$apellido."','".$email."','','','".$password."','','','','','','','','','','',current_time());";
+    $sql="INSERT into ce_customer values(0,0,'".$nombre."','".$apellido."','".$email."','','',sha('".$password."'),'','','','','','','','','','',current_time());";
     $res=$conn->query($sql);
     echo "correcto";
     $conn->close();

@@ -67,7 +67,7 @@ if("GET_ALL_CATEGORY"==$action){
 if("GET_PRODUCT"==$action){
     $idProduct = $_POST['product_id'];
 
-    $consultar=$conn->query("SELECT ce_product.product_id, ce_product.model, ce_product.image, ce_product.price, ce_product.quantity,ce_product.length, ce_product.width, ce_product.height, ce_product_description.name FROM ce_product join ce_product_description on ce_product.product_id=ce_product_description.product_id WHERE ce_product.product_id='".$idProduct."'") or die($conn->error);
+    $consultar=$conn->query("SELECT ce_product.product_id, ce_product.model, ce_product.image, ce_product.price, ce_product.quantity,ce_product.length, ce_product.width, ce_product.height, ce_product_description.name,ce_product_description.description FROM ce_product join ce_product_description on ce_product.product_id=ce_product_description.product_id WHERE ce_product.product_id='".$idProduct."'") or die($conn->error);
 
     $resultado=array();
 

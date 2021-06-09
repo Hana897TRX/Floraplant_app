@@ -4,6 +4,7 @@ import 'package:floramundo_app/theme.dart';
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DescripcionPago extends StatelessWidget {
@@ -225,32 +226,34 @@ class TarjetaDatos extends StatelessWidget {
                           children: <Widget>[
                             const ListTile(
                                 subtitle: Text(
-                              'Número de tarjeta',
+                              'CLABE',
                               textAlign: TextAlign.left,
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             )),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'XXXX XXXX XXXX XXXX'),
+                            Text(
+                              "35309539589083",
+                              style: TextStyle(color: Colors.black45),
                             ),
-                            Column(
-                              children: <Widget>[
-                                const ListTile(
-                                    subtitle: Text(
-                                  'Nombre en la tarjeta',
-                                  textAlign: TextAlign.left,
-                                )),
-                                TextField(
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'XXXXXXXX'),
-                                ),
-                              ],
+                            const ListTile(
+                                subtitle: Text(
+                              'Benficiario',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                            Text(
+                              "Floramundo",
+                              style: TextStyle(color: Colors.black45),
                             ),
+                            const ListTile(
+                                subtitle: Text(
+                              'Banco',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                            Text(
+                              "Banamex",
+                              style: TextStyle(color: Colors.black45),
+                            )
                           ],
                         ),
                       ),
@@ -294,6 +297,7 @@ class TarjetaDatos extends StatelessWidget {
 }
 
 class ResumenPago extends StatelessWidget {
+  FlutterSecureStorage flutterSecureStorage = new FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     final resumen = Container(
@@ -336,7 +340,7 @@ class ResumenPago extends StatelessWidget {
                                           }),
                                 ),
                                 Text(
-                                  'Información de envío',
+                                  'Resumen del envío',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 24.0,
@@ -431,6 +435,7 @@ class ResumenPago extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () {
                                 _showToast(context);
+                                flutterSecureStorage.deleteAll();
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -462,9 +467,9 @@ class ResumenPago extends StatelessWidget {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: const Text('Confirmando'),
+        content: const Text('Confirmado'),
         action: SnackBarAction(
-            label: 'Confirmado', onPressed: scaffold.hideCurrentSnackBar),
+            label: 'Ok', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

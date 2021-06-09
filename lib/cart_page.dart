@@ -34,15 +34,8 @@ class _CartPageState extends State<Cart> {
   @override
   void initState() {
     super.initState();
-    //print(widget.id);
     _productsIds = CartSharedPreferences.getProductos() ?? [];
     _cantidads = CartSharedPreferences.getCantidades() ?? [];
-    // _productsIds.add("70");
-    // _productsIds.add("71");
-    // _cantidads.add("4");
-    // _cantidads.add("5");
-    // CartSharedPreferences.setCantidades(_cantidads);
-    // CartSharedPreferences.setProductos(_productsIds);
     _productsIds.forEach((id) {
       getProducto(id);
     });
@@ -176,12 +169,16 @@ class _CartPageState extends State<Cart> {
             cardTitle,
             Stack(
               children: [
-                new ListView.builder(
-                  itemCount: productList.length,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) =>
-                      buildProductCard(context, index),
+                SizedBox(
+                  height: 650,
+                  child: new ListView.builder(
+                    itemCount: productList.length,
+                    scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildProductCard(context, index),
+                  ),
                 ),
                 cardCheck
               ],
@@ -218,8 +215,6 @@ class _CartPageState extends State<Cart> {
     return Container(
       child: Column(
         children: [
-          // CartProduct('assets/img/exampleplant.png', producto.name,
-          //     producto.price, int.parse(cantidadActual))
           Container(
             alignment: Alignment.center,
             child: Container(
@@ -244,7 +239,7 @@ class _CartPageState extends State<Cart> {
                             producto.name,
                             style: TextStyle(
                               fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 20),
+                                  .getadaptiveTextSize(context, 16),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

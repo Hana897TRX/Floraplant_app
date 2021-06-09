@@ -333,7 +333,19 @@ class _SignUpState extends State<SignUp> {
       AlertDialog(
         content: Text(response.body),
       );
+      _showToast(context);
     }
+  }
+
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Registrado correctamente'),
+        action: SnackBarAction(
+            label: 'Ok', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
   }
 
   void _toggleSignupConfirm() {

@@ -1,4 +1,5 @@
 import 'package:floramundo_app/pages/login_page.dart';
+import 'package:floramundo_app/pages/profile_page.dart';
 import 'package:floramundo_app/theme.dart';
 import 'package:floramundo_app/widgets/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class DescripcionPago extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    LoginPage()),
+                                                    ProfilePage()),
                                           )
                                         }),
                               ),
@@ -234,7 +235,7 @@ class TarjetaDatos extends StatelessWidget {
                               ],
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  hintText: 'Núm. de tarjeta'),
+                                  hintText: 'XXXX XXXX XXXX XXXX'),
                             ),
                             Column(
                               children: <Widget>[
@@ -246,7 +247,7 @@ class TarjetaDatos extends StatelessWidget {
                                 TextField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      hintText: 'Nombre'),
+                                      hintText: 'XXXXXXXX'),
                                 ),
                               ],
                             ),
@@ -395,20 +396,8 @@ class ResumenPago extends StatelessWidget {
                           style: TextStyle(color: Colors.black45),
                         ),
                         Padding(
-                            padding: const EdgeInsets.only(top: 20.0, left: 90),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Forma de pago',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'WorkSansBold'),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            )),
+                            padding: const EdgeInsets.only(
+                                top: 20.0, left: 90, bottom: 30)),
                         // const ListTile(
                         //     subtitle: Text(
                         //   'Número de tarjeta',
@@ -475,7 +464,7 @@ class ResumenPago extends StatelessWidget {
       SnackBar(
         content: const Text('Confirmando'),
         action: SnackBarAction(
-            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+            label: 'Confirmado', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

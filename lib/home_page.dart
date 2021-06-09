@@ -246,7 +246,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getPopus() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.70/productos.php"),
+        Uri.parse("http://192.168.100.27/productos.php"),
         body: {'action': 'GET_POPUS'});
 
     var dataPopus;
@@ -271,7 +271,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getProducts1() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.70/productos.php"),
+        Uri.parse("http://192.168.100.27/productos.php"),
         body: {'action': 'GET_ALL'});
 
     var dataPopus;
@@ -296,7 +296,7 @@ class _HomePage extends State<HomePage> {
 
   Future<List<Widget>> getProducts2() async {
     final response = await http.post(
-        Uri.parse("http://192.168.1.70/productos.php"),
+        Uri.parse("http://192.168.100.27/productos.php"),
         body: {'action': 'GET_ALL'});
 
     var dataPopus;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:floramundo_app/utils/shared_preferences_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:floramundo_app/models/producto_model.dart';
 import 'package:http/http.dart' as http;
@@ -205,7 +206,7 @@ class _PlantDetails extends State<PlantDetails> {
         style: ElevatedButton.styleFrom(
           primary: Color(0xFF00E676),
         ),
-        onPressed: () {},
+        onPressed: addCarrito,
         child: Text('Añadir al carrito'),
       ),
     );
@@ -217,9 +218,41 @@ class _PlantDetails extends State<PlantDetails> {
         ));
   }
 
+  void addCarrito() {
+    List<String> _productsIds = CartSharedPreferences.getProductos() ?? [];
+    List<String> _cantidads = CartSharedPreferences.getCantidades() ?? [];
+    bool existe = false;
+    for (var i = 0; i < _productsIds.length; i++) {
+      if (_productsIds[i] == idProducto.toString()) {
+        existe = true;
+        _cantidads[i] = (int.parse(_cantidads[i]) + 1).toString();
+      }
+    }
+    if (!existe) {
+      _productsIds.add(idProducto.toString());
+      _cantidads.add("1");
+    }
+
+    CartSharedPreferences.setCantidades(_cantidads);
+    CartSharedPreferences.setProductos(_productsIds);
+    Navigator.pop(context);
+    _showToast(context);
+  }
+
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Agregado correctamente'),
+        action: SnackBarAction(
+            label: 'Ok', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
   Future<Producto> getProduct() async {
     final response = await http.post(
-        Uri.parse('http://192.168.1.70/productos.php'),
+        Uri.parse('http://192.168.100.27/productos.php'),
         body: {'action': 'GET_PRODUCT', 'product_id': idProducto.toString()});
 
     var data;

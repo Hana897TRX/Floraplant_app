@@ -1,14 +1,15 @@
 import 'package:floramundo_app/pages/delivery_page.dart';
 import 'package:floramundo_app/pages/infoCuenta_page.dart';
 import 'package:floramundo_app/pages/orders_page.dart';
+import 'package:floramundo_app/utils/authentication_user.dart';
 import 'package:floramundo_app/widgets/floraMundoLogo.dart';
-import 'package:floramundo_app/widgets/snackbar.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:floramundo_app/theme.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-
+import 'dart:convert';
 import 'login_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,6 +25,8 @@ class _ProfilePageState extends State<ProfilePage>
 
   Color left = Colors.black;
   Color right = Colors.white;
+  Map<String, dynamic> user = {};
+  AuthenticationUser authenticationUser;
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   @override
   void dispose() {
@@ -35,6 +38,21 @@ class _ProfilePageState extends State<ProfilePage>
   void initState() {
     super.initState();
     _pageController = PageController();
+    authenticationUser = AuthenticationUser(secureStorage);
+
+    authenticationUser.getSession().then((id) async {
+      print(id);
+      if (id != null) {
+        final response = await http.post(
+            Uri.parse('http://192.168.100.27/usuarios.php'),
+            body: {'action': 'GET_USUARIO', 'customer_id': id.toString()});
+
+        print(response.body);
+        setState(() {
+          user = json.decode(response.body);
+        });
+      }
+    });
   }
 
   @override
@@ -87,7 +105,10 @@ class _ProfilePageState extends State<ProfilePage>
                               padding: const EdgeInsets.only(
                                   top: 20.0, left: 25.0, right: 25.0),
                               child: Text(
-                                'Gabriela Fernanda Soto',
+                                (user["firstname"].toString() +
+                                        " " +
+                                        user["lastname"].toString() ??
+                                    ""),
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 28.0,
@@ -113,7 +134,9 @@ class _ProfilePageState extends State<ProfilePage>
                     onTap: () => {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => InfoCuenta()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                InfoCuenta(int.parse(user["customer_id"]))),
                       )
                     },
                     child: Card(

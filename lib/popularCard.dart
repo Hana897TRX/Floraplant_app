@@ -1,4 +1,5 @@
 import 'package:floramundo_app/pages/payment.dart';
+import 'package:floramundo_app/pages/plant_details_page.dart';
 import 'package:flutter/material.dart';
 
 import 'cart_page.dart';
@@ -70,10 +71,9 @@ class _PopularCard extends State<PopularCard> {
 
   void plantSelected(int id, context) {
     print(id);
-
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => PlantDetails(id)));
     //Navigator.of(context).push(MaterialPageRoute(builder:(context)=>ClaseSegundaPantalla(id)));
     // ----- CAMBIA LA CLASE COMENTADA LLAMADA "ClaseSegundaPantalla" POR LA CLASE QUE VAS A CREAR DEL PRODUCTO
-    
-
   }
 }

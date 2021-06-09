@@ -1,8 +1,44 @@
 import 'package:floramundo_app/pages/profile_page.dart';
+import 'package:floramundo_app/theme.dart';
+import 'package:floramundo_app/utils/authentication_user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class InfoCuenta extends StatelessWidget {
+class InfoCuenta extends StatefulWidget {
+  int idUser;
+  InfoCuenta(this.idUser);
+
+  @override
+  _InfoCuenta createState() => _InfoCuenta();
+}
+
+class _InfoCuenta extends State<InfoCuenta> {
+  Map<String, dynamic> data = {};
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  Future<String> getUser() async {
+    final response = await http
+        .post(Uri.parse('http://192.168.100.27/usuarios.php'), body: {
+      'action': 'GET_USUARIO',
+      'customer_id': widget.idUser.toString()
+    });
+
+    print(response.body);
+    setState(() {
+      data = json.decode(response.body);
+    });
+
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     final datosCuenta = ListView(
@@ -45,18 +81,40 @@ class InfoCuenta extends StatelessWidget {
                         ),
                       ],
                     )),
-                SizedBox(
-                  width: 250,
-                  child: const ListTile(
-                      title: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            'Juan Diego Bastidas',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ))),
-                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 40.0),
+                    child: GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InfoCuenta(111)),
+                        )
+                      },
+                      child: Card(
+                          elevation: 2.0,
+                          color: Colors.green.shade100,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Container(
+                              width: 330.0,
+                              height: 70.0,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      (data["firstname"].toString() +
+                                              " " +
+                                              data["lastname"].toString() ??
+                                          ""),
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ]))),
+                    )),
                 const ListTile(
                     subtitle: Text(
                   'Correo',
@@ -64,7 +122,7 @@ class InfoCuenta extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )),
                 Text(
-                  "asd@gmail.com",
+                  data["email"] ?? "",
                   style: TextStyle(color: Colors.black45),
                 ),
                 const ListTile(
@@ -94,40 +152,10 @@ class InfoCuenta extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )),
                 Text(
-                  "7776666666",
+                  data["telephone"] ?? "",
                   style: TextStyle(color: Colors.black45),
                 ),
                 SizedBox(height: 50),
-                const ListTile(
-                    subtitle: Text(
-                  'Número de tarjeta',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-                Text(
-                  "123456789951",
-                  style: TextStyle(color: Colors.black45),
-                ),
-                const ListTile(
-                    subtitle: Text(
-                  'Nombre en la tarjeta',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-                Text(
-                  "Iván Contreras",
-                  style: TextStyle(color: Colors.black45),
-                ),
-                const ListTile(
-                    subtitle: Text(
-                  'Fecha de expiración',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-                Text(
-                  "10/22",
-                  style: TextStyle(color: Colors.black45),
-                ),
               ],
             )),
       ],

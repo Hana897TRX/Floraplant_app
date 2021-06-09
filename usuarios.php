@@ -21,11 +21,7 @@ $action = $_POST["action"];
 if("GET_USUARIO"==$action){
     $customer_id = $_POST['customer_id'];
     $consultar=$conn->query("SELECT * FROM ce_customer WHERE customer_id = '".$customer_id."';") or die($conn->error);
-    $resultado=array();
-    while($extraerDatos=$consultar->fetch_assoc()){
-        //print_r($extraerDatos);
-        array_push($resultado,$extraerDatos);
-    }
+    $resultado=$consultar->fetch_assoc();  
   //  print_r($resultado);
     echo json_encode($resultado);
     $conn->close();
